@@ -65,7 +65,7 @@ function buildImageContainer(resolution) {
     return container;
 }
 
-function dragStop() {
+function dragStop(e) {
     if(currentDragElement) {
         let dy = e.pageY - startY;
         currentDragElement.beforeDY += dy;
@@ -73,7 +73,7 @@ function dragStop() {
     currentDragElement = null
 }
 
-function dragMove() {
+function dragMove(e) {
     if(currentDragElement != null) {
         onDrag(currentDragElement, e.pageX - startX, e.pageY - startY);
         e.preventDefault();
