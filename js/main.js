@@ -31,6 +31,8 @@ function onload() {
 let currentDragElement = null;
 let startX = 0;
 let startY = 0;
+let lastX = 0;
+let lastY = 0;
 
 function buildImageContainer(resolution) {
     let container = document.createElement("div");
@@ -53,10 +55,13 @@ function buildImageContainer(resolution) {
     resolution.beforeDY = 0;
 
     let dragstart = (e) => {
+        if(!e.pageY && e.touches && e.touches[0]) {
+            e.pageX = e.touches[0].pageX;
+            e.pageY = e.touches[0].pageY;
+        }
         currentDragElement = resolution
-        startX = e.pageX;
-        startY = e.pageY;
-        e.preventDefault();
+        startX = lastX = e.pageX;
+        startY = lastY = e.pageY;
     }
 
     template.addEventListener("mousedown", dragstart);
@@ -67,6 +72,10 @@ function buildImageContainer(resolution) {
 
 function dragStop(e) {
     if(currentDragElement) {
+        if(!e.pageY) {
+            e.pageX = lastX;
+            e.pageY = lastY;
+        }
         let dy = e.pageY - startY;
         currentDragElement.beforeDY += dy;
     }
@@ -75,7 +84,11 @@ function dragStop(e) {
 
 function dragMove(e) {
     if(currentDragElement != null) {
-        onDrag(currentDragElement, e.pageX - startX, e.pageY - startY);
+        if(!e.pageY && e.touches && e.touches[0]) {
+            e.pageX = e.touches[0].pageX;
+            e.pageY = e.touches[0].pageY;
+        }
+        onDrag(currentDragElement, lastX = e.pageX - startX, lastY = e.pageY - startY);
         e.preventDefault();
     }
 }
@@ -83,7 +96,7 @@ function dragMove(e) {
 document.addEventListener("mouseup", dragStop);
 document.addEventListener("touchend", dragStop);
 document.addEventListener("mousemove", dragMove);
-document.addEventListener("touchmove", dragMove);
+document.addEventListener("touchmove", dragMove, {passive: false});
 
 function upload(file) {
     console.log(file);
