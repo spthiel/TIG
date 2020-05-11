@@ -52,29 +52,38 @@ function buildImageContainer(resolution) {
     resolution.currentDY = 0;
     resolution.beforeDY = 0;
 
-    template.addEventListener("mousedown", (e) => {
+    let dragstart = (e) => {
         currentDragElement = resolution
         startX = e.pageX;
         startY = e.pageY;
         e.preventDefault();
-    });
+    }
+
+    template.addEventListener("mousedown", dragstart);
+    template.addEventListener("touchstart", dragstart);
 
     return container;
 }
 
-document.addEventListener("mouseup", (e) => {
+function dragStop() {
     if(currentDragElement) {
         let dy = e.pageY - startY;
         currentDragElement.beforeDY += dy;
     }
     currentDragElement = null
-});
-document.addEventListener("mousemove", (e) => {
+}
+
+function dragMove() {
     if(currentDragElement != null) {
         onDrag(currentDragElement, e.pageX - startX, e.pageY - startY);
         e.preventDefault();
     }
-})
+}
+
+document.addEventListener("mouseup", dragStop);
+document.addEventListener("touchend", dragStop);
+document.addEventListener("mousemove", dragMove);
+document.addEventListener("touchmove", dragMove);
 
 function upload(file) {
     console.log(file);
