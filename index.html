@@ -1,23 +1,29 @@
-<html>
-<head>
-    <script src="js/main.js" type="application/javascript"></script>
-    <script src="js/output.js" type="application/json"></script>
-    <script src="js/utils.js" type="application/javascript"></script>
-    <link type="text/css" href="css/main.css" rel="stylesheet">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="TatsuBackground" />
-    <meta property="og:description" content="Tool for tatsu profile backgrounds" />
-    <meta property="og:url" content="https://spthiel.github.io/TatsuBackgrounds/" />
-</head>
-<body onload="onload()">
-<div id="upload">
-    <form onsubmit="return false">
-        <input name="file" type="file" size="50" accept="image/png,image/gif,image/jpeg">
-        <button name="submit" onclick="upload(this.form.file)" type="submit">Submit</button>
-    </form>
-</div>
-<div id="files">
-
-</div>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link type="text/css" href="css/main.css" rel="stylesheet">
+        
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="TatsuBackground"/>
+        <meta property="og:description" content="Tool for tatsu profile backgrounds"/>
+        <meta property="og:url" content="https://spthiel.github.io/TatsuBackgrounds/"/>
+        <title>TatsuBackground</title>
+    </head>
+    <body>
+        <div id="upload">
+            <form onsubmit="return false">
+                <input name="file" type="file" size="50" accept="image/png,image/gif,image/jpeg">
+                <input name="submit" onclick="upload(this.form.file)" type="button" value="Submit">
+            </form>
+        </div>
+        <div id="files"></div>
+        <hr>
+        <div id="outputs"></div>
+    
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.js" type="application/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" type="application/javascript"></script>
+        <script src="js/main.js" type="application/javascript"></script>
+        <script src="js/output.js" type="application/json"></script>
+        <script src="js/utils.js" type="application/javascript"></script>
+    </body>
 </html>
