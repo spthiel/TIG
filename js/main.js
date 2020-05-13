@@ -15,7 +15,7 @@ let resolutions = [
         "image": "rank_template.png",
         "width": 740,
         "height": 260,
-        "bevel": "20px 20px 0 0"
+        "bevel": "20px 20px"
     },
     {
         "image": "wallet_template.png",
@@ -59,6 +59,7 @@ function buildImageContainer(files, resolution) {
     let template = document.createElement("div");
     template.className = "template";
     template.style.backgroundImage = `url("assets/${resolution.image}")`;
+    template.style.borderRadius = resolution.bevel;
 
 
     let exportBtn = document.createElement("button");
