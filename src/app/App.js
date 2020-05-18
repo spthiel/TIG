@@ -1,25 +1,21 @@
 import React from 'react';
-import logo from '../logo.svg';
 import './App.css';
+import {useMediaQuery} from "@material-ui/core";
+import {ThemeProvider} from "@material-ui/styles";
+import Base from "./pages/Base";
+import Themes from "./Themes";
 
 function App() {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = Themes(prefersDarkMode);
+
+  window.theme = theme;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ThemeProvider theme={theme}>
+        <Base/>
+      </ThemeProvider>
   );
 }
 
